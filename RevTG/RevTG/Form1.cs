@@ -19,12 +19,8 @@ namespace RevTG
         public RevTG_Form1()
         {
             InitializeComponent();
-            txbDay.Text = DateTime.Today.Day.ToString();
-            txbMonth.Text = DateTime.Today.Month.ToString();
 
-
-
-
+            //Hardcoding my schedule
             //Week 1
             LecDates.Add(new DateTime(2018, 02, 5));
             LecTitle.Add("Thermal and Statistical Physics");
@@ -85,14 +81,17 @@ namespace RevTG
             LecTitle.Add("Theoretical Physcis");
             LecDates.Add(new DateTime(2018, 05, 11));
             LecTitle.Add("Quantum Mechanics I");
+            update(2018, DateTime.Today.Month, DateTime.Today.Day);
         }
 
         public void btnFind_Click(object sender, EventArgs e)
+        { update(2018, int.Parse(txbMonth.Text), int.Parse(txbDay.Text)); }
+        private void update(int year, int month, int day)
         {
             rbOutput.Text = "";
             DateTime RequestDate = DateTime.Today;
             bool validDate = true;
-            try { RequestDate = new DateTime(2018, int.Parse(txbMonth.Text), int.Parse(txbDay.Text)); }
+            try { RequestDate = new DateTime(year, month, day); }
             catch { validDate = false; }
 
             if (validDate)
@@ -107,7 +106,7 @@ namespace RevTG
                     }
                 }
             else rbOutput.Text += "That date doesn't exist please input a real date <day> <month>";
-            if (rbOutput.Text == "") rbOutput.Text += "No work scheduled for today :)";
+            if (rbOutput.Text == "") rbOutput.Text += "No work scheduled for today";
         }
     }
 }
